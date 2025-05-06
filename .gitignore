@@ -27,3 +27,6 @@ build/
 
 # Misc
 .DS_Store
+
+shared_types.py
+__pycache__/

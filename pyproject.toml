@@ -1,0 +1,9 @@
+[project]
+name = "boston-amtrak-tracker"
+version = "0.1.0"
+description = "add on component to inky mbta tracker that keeps track of amtrak trains in new england"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic-to-typescript>=2.0.0",
+]

@@ -1,10 +1,10 @@
 {
-  "name": "node-typescript-boilerplate",
+  "name": "boston-amtrak-tracker",
   "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "description": "add on component to inky mbta tracker that keeps track of amtrak trains in new england ",
   "type": "module",
   "engines": {
-    "node": ">= 22.11 < 23"
+    "node": ">= 23"
   },
   "devDependencies": {
     "@eslint/js": "~9.17",
@@ -13,33 +13,36 @@
     "@typescript-eslint/parser": "~8.19",
     "@vitest/coverage-v8": "~2.1",
     "@vitest/eslint-plugin": "~1.1",
-    "eslint-config-prettier": "~9.1",
     "eslint": "~9.17",
+    "eslint-config-prettier": "~9.1",
     "globals": "~15.14",
     "prettier": "~3.4",
     "rimraf": "~6.0",
     "ts-api-utils": "~2.0",
-    "typescript-eslint": "~8.19",
     "typescript": "~5.7",
+    "typescript-eslint": "~8.19",
     "vitest": "~2.1"
   },
   "scripts": {
-    "start": "node build/src/main.js",
+    "start": "yarn build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run lint",
+    "prebuild": "yarn run lint",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "npm run clean && tsc -p tsconfig.release.json",
+    "build:release": "yarn run clean && tsc -p tsconfig.release.json",
     "lint": "eslint .",
     "test": "vitest run unit --config __tests__/vitest.config.ts",
     "test:coverage": "vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
     "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
     "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
-    "test:watch": "vitest unit"
+    "test:watch": "vitest unit",
+    "types": "wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types.py && uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts"
   },
-  "author": "Jakub Synowiec <jsynowiec@users.noreply.github.com>",
+  "author": "Ryan Wallace",
   "license": "Apache-2.0",
   "dependencies": {
+    "amtrak": "^3.0.11",
+    "json-schema-to-typescript": "^15.0.4",
     "tslib": "~2.8"
   },
   "volta": {
