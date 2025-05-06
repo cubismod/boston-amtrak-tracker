@@ -8,7 +8,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: volta-cli/action@v4
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/install@v3
       - run: yarn install --frozen-lockfile
       - run: yarn run lint --if-present
       - run: yarn run prettier:check --if-present
