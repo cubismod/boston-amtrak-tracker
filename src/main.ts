@@ -1,34 +1,52 @@
-/**
- * Some predefined delay values (in milliseconds).
- */
-export enum Delays {
-  Short = 500,
-  Medium = 2000,
-  Long = 5000,
+import { fetchAllTrains } from 'amtrak';
+import { createClient } from 'redis';
+import { VehicleRedisSchema } from './sharedTypes.js';
+
+async function getTrains() {
+  const client = await createClient({
+    url: process.env.BT_REDIS_URL,
+    password: process.env.BT_REDIS_PASSWORD,
+  })
+    .on('error', (err) => console.log('Redis Client Error', err))
+    .connect();
+
+  const trains = await fetchAllTrains();
+  for (const [, val] of Object.entries(trains)) {
+    for (const train of val) {
+      if (
+        train.origName.includes('Boston') ||
+        train.destName.includes('Boston')
+      ) {
+        const redisTrain: VehicleRedisSchema = {
+          action: 'update',
+          current_status: train.trainState,
+          direction_id: 0,
+          id: train.trainID,
+          latitude: train.lat,
+          longitude: train.lon,
+          route: `${train.routeName} from ${train.origName} to ${train.destName}`,
+          update_time: train.updatedAt,
+          approximate_speed: false,
+          speed: train.velocity,
+          stop: train.eventName,
+        };
+        console.log(train);
+        const key = `amtrak-${train.trainID}`;
+        await client.set(key, JSON.stringify(redisTrain), {
+          expiration: {
+            type: 'EX',
+            value: 900,
+          },
+        });
+        await client.sAdd('pos-data', key);
+      }
+    }
+  }
 }
 
-/**
- * Returns a Promise<string> that resolves after a given time.
- *
- * @param {string} name - A name.
- * @param {number=} [delay=Delays.Medium] - A number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number = Delays.Medium,
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay),
-  );
+async function main() {
+  await getTrains();
+  setTimeout(getTrains, 600000);
 }
 
-// Please see the comment in the .eslintrc.json file about the suppressed rule!
-// Below is an example of how to use ESLint errors suppression. You can read more
-// at https://eslint.org/docs/latest/user-guide/configuring/rules#disabling-rules
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type, @typescript-eslint/no-explicit-any
-export async function greeter(name: any) {
-  // The name parameter should be of type string. Any is used only to trigger the rule.
-  return await delayedHello(name, Delays.Long);
-}
+await main();

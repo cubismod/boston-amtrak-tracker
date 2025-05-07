@@ -30,3 +30,5 @@ build/
 
 shared_types.py
 __pycache__/
+
+.env
