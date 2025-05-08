@@ -21,6 +21,7 @@ async function getTrains() {
         train.destName.includes('Pittsfield') ||
         train.routeName.includes('Vermonter')
       ) {
+        const updateTime = new Date(train.updatedAt);
         const redisTrain: VehicleRedisSchema = {
           action: 'update',
           current_status: train.trainState,
@@ -29,7 +30,7 @@ async function getTrains() {
           latitude: train.lat,
           longitude: train.lon,
           route: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
-          update_time: train.updatedAt,
+          update_time: updateTime.toISOString(),
           approximate_speed: false,
           speed: train.velocity,
           stop: train.eventName,
@@ -39,20 +40,22 @@ async function getTrains() {
         await client.set(key, JSON.stringify(redisTrain), {
           expiration: {
             type: 'EX',
-            value: 900,
+            value: 600,
           },
         });
         await client.sAdd('pos-data', key);
+        setTimeout(async () => {
+          await client.sRem('pos-data', key);
+        });
       }
     }
   }
-  client.destroy();
 }
 
 async function main() {
   log.setDefaultLevel('INFO');
   await getTrains();
-  setTimeout(getTrains, 600000);
+  setTimeout(getTrains, 600000); // 10 min
 }
 
 await main();
