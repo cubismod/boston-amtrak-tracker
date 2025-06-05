@@ -4,12 +4,12 @@
   "description": "add on component to inky mbta tracker that keeps track of amtrak trains in new england ",
   "type": "module",
   "engines": {
-    "node": "22.15.1"
+    "node": "22.16.0"
   },
   "devDependencies": {
     "@eslint/js": "9.28.0",
     "@types/eslint__js": "8.42.3",
-    "@types/node": "22.15.21",
+    "@types/node": "22.15.30",
     "@typescript-eslint/parser": "8.32.1",
     "eslint": "9.28.0",
     "eslint-config-prettier": "10.1.5",
