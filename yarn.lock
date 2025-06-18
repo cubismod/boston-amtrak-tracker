@@ -328,9 +328,9 @@ ajv@^6.12.4:
     uri-js "^4.2.2"
 
 amtrak@^3.0.11:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/amtrak/-/amtrak-3.0.11.tgz#25e46ac6f2b4d260a267be50db32ffb314f73702"
-  integrity sha512-EuT7JvW/58wDfgJS30jS5KPWguBNfsHKPWxR6VPjKKVn+HWndH7r7HS8HP42b+GZPxp8alVXPg8DMcwp1uf6bA==
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/amtrak/-/amtrak-3.0.13.tgz#a364f658b5fa8a5afb6ca6c5a5735d7e6e3c03ec"
+  integrity sha512-96Yc3qw0wuw2N1e9QjUkOVvSNiWphEJgtj2XnQuWTvcfBchMZh0bxxxIDK0q0uFOC40lXWAX1jzyNDyc26yIWA==
   dependencies:
     axios "^1.3.3"
     colors "^1.4.0"
