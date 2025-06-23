@@ -10,7 +10,7 @@
     "@eslint/js": "9.29.0",
     "@types/eslint__js": "8.42.3",
     "@types/node": "22.15.32",
-    "@typescript-eslint/parser": "8.32.1",
+    "@typescript-eslint/parser": "8.35.0",
     "eslint": "9.29.0",
     "eslint-config-prettier": "10.1.5",
     "globals": "16.2.0",
@@ -18,7 +18,7 @@
     "rimraf": "6.0.1",
     "ts-api-utils": "2.1.0",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.32.1"
+    "typescript-eslint": "8.35.0"
   },
   "scripts": {
     "startenv": "node --env-file=.env build/src/main.js",
