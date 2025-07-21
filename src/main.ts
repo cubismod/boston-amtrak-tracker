@@ -57,7 +57,7 @@ async function updateTrains() {
           route: train.routeName,
           update_time: updateTime.toISOString(),
           approximate_speed: false,
-          speed: train.velocity,
+          speed: Math.round(train.velocity),
           stop: train.eventName,
           headsign: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
         };
