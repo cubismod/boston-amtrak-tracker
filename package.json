@@ -48,8 +48,8 @@
     "json-schema-to-typescript": "^15.0.4",
     "koa": "^3.0.0",
     "koa-static": "^5.0.0",
+    "koa2-swagger-ui": "^5.11.0",
     "loglevel": "^1.9.2",
-    "swagger-ui-koa": "^0.0.1",
     "tslib": "~2.8"
   }
 }
