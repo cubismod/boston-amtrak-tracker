@@ -40,11 +40,7 @@ async function updateTrains() {
     for (const train of val) {
       if (
         train.origName.includes('Boston') ||
-        train.destName.includes('Boston') ||
-        train.routeName.includes('Hartford') ||
-        train.origName.includes('Pittsfield') ||
-        train.destName.includes('Pittsfield') ||
-        train.routeName.includes('Vermonter')
+        train.destName.includes('Boston')
       ) {
         const updateTime = new Date(train.updatedAt);
         const trainRecord: VehicleRedisSchema = {
