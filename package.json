@@ -34,7 +34,7 @@
     "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
     "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
     "test:watch": "vitest unit",
-    "types": "wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types.py && uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts"
+    "types": "wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types/shared_types.py && uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts"
   },
   "author": "Ryan Wallace",
   "license": "Apache-2.0",

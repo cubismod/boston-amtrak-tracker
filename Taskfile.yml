@@ -1,0 +1,70 @@
+version: '3'
+
+tasks:
+  startenv:
+    desc: Start application with environment file
+    cmds:
+      - node --env-file=.env build/src/main.js
+
+  start:
+    desc: Start application
+    cmds:
+      - node build/src/main.js
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rimraf coverage build tmp
+
+  build:
+    desc: Build project
+    deps: [lint]
+    cmds:
+      - tsc -p tsconfig.json
+
+  build:watch:
+    desc: Build project in watch mode
+    cmds:
+      - tsc -w -p tsconfig.json
+
+  build:release:
+    desc: Build project for release
+    cmds:
+      - task: clean
+      - tsc -p tsconfig.release.json
+
+  lint:
+    desc: Run ESLint
+    cmds:
+      - eslint .
+
+  test:
+    desc: Run tests
+    cmds:
+      - vitest run unit --config __tests__/vitest.config.ts
+
+  test:coverage:
+    desc: Run tests with coverage
+    cmds:
+      - vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all
+
+  test:watch:
+    desc: Run tests in watch mode
+    cmds:
+      - vitest unit
+
+  prettier:
+    desc: Format code with Prettier
+    cmds:
+      - yarn run prettier "{src,__{tests}__}/**/*.{ts,mts}" --config .prettierrc --write
+
+  prettier:check:
+    desc: Check code formatting with Prettier
+    cmds:
+      - yarn run prettier "{src,__{tests}__}/**/*.{ts,mts}" --config .prettierrc --check
+
+  types:
+    desc: Generate TypeScript types from Python types
+    cmds:
+      - wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types/shared_types.py
+      - uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts

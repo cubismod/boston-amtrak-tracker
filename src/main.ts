@@ -29,11 +29,12 @@ async function getTrains() {
           id: train.trainID,
           latitude: train.lat,
           longitude: train.lon,
-          route: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
+          route: train.routeName,
           update_time: updateTime.toISOString(),
           approximate_speed: false,
           speed: train.velocity,
           stop: train.eventName,
+          headsign: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
         };
         log.info(redisTrain);
         const key = `amtrak-${train.trainID}`;
