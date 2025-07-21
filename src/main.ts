@@ -147,7 +147,7 @@ async function main() {
     .use(
       cors({
         allowHeaders: ['*'],
-        allowMethods: [],
+        allowMethods: ['*'],
         origin: (ctx: Context) => {
           const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',');
           if (allowedOrigins?.includes(ctx.request.header.origin ?? '')) {
