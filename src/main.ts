@@ -1,5 +1,5 @@
 import { fetchAllTrains } from 'amtrak';
-import Koa from 'koa';
+import Koa, { Context } from 'koa';
 import Router from '@koa/router';
 import cors from '@koa/cors';
 import { VehicleRedisSchema } from './sharedTypes.js';
@@ -141,7 +141,22 @@ async function main() {
     ctx.type = 'application/json';
   });
 
-  app.use(router.routes()).use(router.allowedMethods());
+  app
+    .use(router.routes())
+    .use(router.allowedMethods())
+    .use(
+      cors({
+        allowHeaders: ['*'],
+        allowMethods: [],
+        origin: (ctx: Context) => {
+          const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',');
+          if (allowedOrigins?.includes(ctx.request.header.origin ?? '')) {
+            return ctx.request.header.origin;
+          }
+          return 'https://bos.ryanwallace.cloud';
+        },
+      }),
+    );
 
   const port = process.env.PORT || 3000;
   app.listen(port, () => {
