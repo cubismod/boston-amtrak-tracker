@@ -4,8 +4,8 @@ import Router from '@koa/router';
 import cors from '@koa/cors';
 import { VehicleRedisSchema } from './sharedTypes.js';
 import log from 'loglevel';
-import swaggerUi from 'swagger-ui-koa';
 import fs from 'fs';
+import { koaSwagger, SwaggerOptions } from 'koa2-swagger-ui';
 import path from 'path';
 
 interface GeoJSONFeature {
@@ -103,16 +103,21 @@ async function main() {
   app.use(cors());
 
   // Load OpenAPI specification
-  const openApiSpec = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'openapi.json'), 'utf8'),
+  const openApiSpec = fs.readFileSync(
+    path.join(process.cwd(), 'openapi.json'),
+    'utf8',
   );
 
+  const swaggerOptions: SwaggerOptions = {
+    url: '/openapi.json',
+  };
+
   // Configure Swagger UI
-  app.use(swaggerUi.serve);
+  app.use(koaSwagger({ swaggerOptions: swaggerOptions }));
   router.get('/', (ctx) => {
     ctx.redirect('/docs');
   });
-  router.get('/docs', swaggerUi.setup(openApiSpec));
+  router.get('/docs', koaSwagger({ swaggerOptions: swaggerOptions }));
   router.get('/openapi.json', (ctx) => {
     ctx.body = openApiSpec;
     ctx.type = 'application/json';
