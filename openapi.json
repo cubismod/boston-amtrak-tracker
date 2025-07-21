@@ -1,0 +1,255 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Boston Amtrak Tracker API",
+    "version": "1.0.0",
+    "description": "API for tracking Amtrak trains in New England with Boston connections"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/trains": {
+      "get": {
+        "summary": "Get all tracked trains",
+        "description": "Returns all currently tracked Amtrak trains in the system",
+        "responses": {
+          "200": {
+            "description": "List of trains",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Train"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trains/geojson": {
+      "get": {
+        "summary": "Get trains as GeoJSON",
+        "description": "Returns train data formatted as GeoJSON for mapping applications",
+        "responses": {
+          "200": {
+            "description": "GeoJSON feature collection of trains",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoJSONFeatureCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "description": "Returns server health status and last data update time",
+        "responses": {
+          "200": {
+            "description": "Health status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Train": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "example": "update"
+          },
+          "current_status": {
+            "type": "string",
+            "example": "On time"
+          },
+          "direction_id": {
+            "type": "number",
+            "example": 0
+          },
+          "id": {
+            "type": "string",
+            "example": "171"
+          },
+          "latitude": {
+            "type": "number",
+            "example": 42.3601
+          },
+          "longitude": {
+            "type": "number",
+            "example": -71.0589
+          },
+          "route": {
+            "type": "string",
+            "example": "Acela"
+          },
+          "update_time": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-01T12:00:00.000Z"
+          },
+          "approximate_speed": {
+            "type": "boolean",
+            "example": false
+          },
+          "speed": {
+            "type": "number",
+            "example": 79.5
+          },
+          "stop": {
+            "type": "string",
+            "example": "Boston South Station"
+          },
+          "headsign": {
+            "type": "string",
+            "example": "Amtrak Acela from Boston to New York"
+          }
+        },
+        "required": [
+          "action",
+          "current_status",
+          "direction_id",
+          "id",
+          "latitude",
+          "longitude",
+          "route",
+          "update_time",
+          "approximate_speed",
+          "speed",
+          "stop",
+          "headsign"
+        ]
+      },
+      "GeoJSONFeatureCollection": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["FeatureCollection"]
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeoJSONFeature"
+            }
+          }
+        },
+        "required": ["type", "features"]
+      },
+      "GeoJSONFeature": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["Feature"]
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/GeoJSONPoint"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/GeoJSONProperties"
+          }
+        },
+        "required": ["type", "geometry", "properties"]
+      },
+      "GeoJSONPoint": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["Point"]
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "example": [-71.0589, 42.3601]
+          }
+        },
+        "required": ["type", "coordinates"]
+      },
+      "GeoJSONProperties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "171"
+          },
+          "route": {
+            "type": "string",
+            "example": "Acela"
+          },
+          "headsign": {
+            "type": "string",
+            "example": "Amtrak Acela from Boston to New York"
+          },
+          "status": {
+            "type": "string",
+            "example": "On time"
+          },
+          "speed": {
+            "type": "number",
+            "example": 79.5
+          },
+          "stop": {
+            "type": "string",
+            "example": "Boston South Station"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-01T12:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "route",
+          "headsign",
+          "status",
+          "speed",
+          "stop",
+          "updateTime"
+        ]
+      },
+      "HealthStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "lastUpdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-01-01T12:00:00.000Z"
+          }
+        },
+        "required": ["status", "lastUpdate"]
+      }
+    }
+  }
+}

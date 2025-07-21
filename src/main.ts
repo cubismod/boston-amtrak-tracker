@@ -1,16 +1,41 @@
 import { fetchAllTrains } from 'amtrak';
-import { createClient } from 'redis';
+import Koa from 'koa';
+import Router from '@koa/router';
+import cors from '@koa/cors';
 import { VehicleRedisSchema } from './sharedTypes.js';
 import log from 'loglevel';
-async function getTrains() {
-  const client = await createClient({
-    url: process.env.BT_REDIS_URL,
-    password: process.env.BT_REDIS_PASSWORD,
-  })
-    .on('error', (err) => log.error('Redis Client Error', err))
-    .connect();
+import swaggerUi from 'swagger-ui-koa';
+import fs from 'fs';
+import path from 'path';
 
+interface GeoJSONFeature {
+  type: 'Feature';
+  geometry: {
+    type: 'Point';
+    coordinates: [number, number];
+  };
+  properties: {
+    id: string;
+    route: string;
+    headsign: string;
+    status: string;
+    speed: number;
+    stop: string;
+    updateTime: string;
+  };
+}
+
+interface GeoJSONFeatureCollection {
+  type: 'FeatureCollection';
+  features: GeoJSONFeature[];
+}
+
+let trainData: VehicleRedisSchema[] = [];
+
+async function updateTrains() {
   const trains = await fetchAllTrains();
+  const newTrainData: VehicleRedisSchema[] = [];
+
   for (const [, val] of Object.entries(trains)) {
     for (const train of val) {
       if (
@@ -22,7 +47,7 @@ async function getTrains() {
         train.routeName.includes('Vermonter')
       ) {
         const updateTime = new Date(train.updatedAt);
-        const redisTrain: VehicleRedisSchema = {
+        const trainRecord: VehicleRedisSchema = {
           action: 'update',
           current_status: train.trainState,
           direction_id: 0,
@@ -36,27 +61,90 @@ async function getTrains() {
           stop: train.eventName,
           headsign: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
         };
-        log.info(redisTrain);
-        const key = `amtrak-${train.trainID}`;
-        await client.set(key, JSON.stringify(redisTrain), {
-          expiration: {
-            type: 'EX',
-            value: 600,
-          },
-        });
-        await client.sAdd('pos-data', key);
-        setTimeout(async () => {
-          await client.sRem('pos-data', key);
-        });
+        newTrainData.push(trainRecord);
       }
     }
   }
+
+  trainData = newTrainData;
+  log.info(`Updated ${trainData.length} trains`);
+}
+
+function createGeoJSON(): GeoJSONFeatureCollection {
+  const features: GeoJSONFeature[] = trainData.map((train) => ({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [train.longitude, train.latitude],
+    },
+    properties: {
+      id: train.id,
+      route: train.route,
+      headsign: train.headsign,
+      status: train.current_status,
+      speed: train.speed,
+      stop: train.stop,
+      updateTime: train.update_time,
+    },
+  }));
+
+  return {
+    type: 'FeatureCollection',
+    features,
+  };
 }
 
 async function main() {
   log.setDefaultLevel('INFO');
-  await getTrains();
-  setTimeout(getTrains, 600000); // 10 min
+
+  const app = new Koa();
+  const router = new Router();
+
+  app.use(cors());
+
+  // Load OpenAPI specification
+  const openApiSpec = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'openapi.json'), 'utf8'),
+  );
+
+  // Configure Swagger UI
+  app.use(swaggerUi.serve);
+  router.get('/', (ctx) => {
+    ctx.redirect('/docs');
+  });
+  router.get('/docs', swaggerUi.setup(openApiSpec));
+  router.get('/openapi.json', (ctx) => {
+    ctx.body = openApiSpec;
+    ctx.type = 'application/json';
+  });
+
+  router.get('/trains', (ctx) => {
+    ctx.body = trainData;
+    ctx.type = 'application/json';
+  });
+
+  router.get('/trains/geojson', (ctx) => {
+    ctx.body = createGeoJSON();
+    ctx.type = 'application/json';
+  });
+
+  router.get('/health', (ctx) => {
+    ctx.body = {
+      status: 'ok',
+      lastUpdate: trainData.length > 0 ? trainData[0]?.update_time : null,
+    };
+    ctx.type = 'application/json';
+  });
+
+  app.use(router.routes()).use(router.allowedMethods());
+
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    log.info(`Server running on port ${port}`);
+  });
+
+  await updateTrains();
+  setInterval(updateTrains, 600000); // 10 min
 }
 
 await main();
