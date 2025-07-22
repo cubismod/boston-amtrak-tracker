@@ -7,6 +7,7 @@ import log from 'loglevel';
 import fs from 'fs';
 import { koaSwagger, SwaggerOptions } from 'koa2-swagger-ui';
 import path from 'path';
+import { booleanPointInPolygon, point, polygon } from '@turf/turf';
 
 interface GeoJSONFeature {
   type: 'Feature';
@@ -30,6 +31,20 @@ interface GeoJSONFeatureCollection {
   features: GeoJSONFeature[];
 }
 
+const SERVICE_AREA_GEOJSON = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'servicearea.geojson'), 'utf8'),
+);
+
+function isInServiceArea(train: VehicleRedisSchema) {
+  const trainPoint = point([train.longitude, train.latitude]);
+  const serviceArea = polygon(
+    SERVICE_AREA_GEOJSON.features[0].geometry.coordinates,
+  );
+
+  const contains = booleanPointInPolygon(trainPoint, serviceArea);
+  return contains;
+}
+
 let trainData: VehicleRedisSchema[] = [];
 
 async function updateTrains() {
@@ -38,25 +53,22 @@ async function updateTrains() {
 
   for (const [, val] of Object.entries(trains)) {
     for (const train of val) {
-      if (
-        train.origName.includes('Boston') ||
-        train.destName.includes('Boston')
-      ) {
-        const updateTime = new Date(train.updatedAt);
-        const trainRecord: VehicleRedisSchema = {
-          action: 'update',
-          current_status: train.trainState,
-          direction_id: 0,
-          id: train.trainID,
-          latitude: train.lat,
-          longitude: train.lon,
-          route: train.routeName,
-          update_time: updateTime.toISOString(),
-          approximate_speed: false,
-          speed: Math.round(train.velocity),
-          stop: train.eventName,
-          headsign: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
-        };
+      const updateTime = new Date(train.updatedAt);
+      const trainRecord: VehicleRedisSchema = {
+        action: 'update',
+        current_status: train.trainState,
+        direction_id: 0,
+        id: train.trainID,
+        latitude: train.lat,
+        longitude: train.lon,
+        route: train.routeName,
+        update_time: updateTime.toISOString(),
+        approximate_speed: false,
+        speed: Math.round(train.velocity),
+        stop: train.eventName,
+        headsign: `Amtrak ${train.routeName} from ${train.origName} to ${train.destName}`,
+      };
+      if (isInServiceArea(trainRecord)) {
         newTrainData.push(trainRecord);
       }
     }
