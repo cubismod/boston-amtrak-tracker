@@ -172,7 +172,7 @@ async function main() {
   });
 
   await updateTrains();
-  setInterval(updateTrains, 600000); // 10 min
+  setInterval(updateTrains, 120000); // 2 min
 }
 
 await main();
