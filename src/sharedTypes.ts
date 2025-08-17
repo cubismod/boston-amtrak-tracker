@@ -5,7 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type TrackAssignmentType = 'historical' | 'predicted';
+export type TrackAssignmentType = "historical" | "predicted";
 
 export interface ScheduleEvent {
   action: string;
