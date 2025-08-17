@@ -1,6 +1,11 @@
 version: '3'
 
 tasks:
+  container:
+    desc: Build Container image locally
+    cmds:
+      - ./container-build.sh
+
   startenv:
     desc: Start application with environment file
     cmds:
@@ -14,57 +19,56 @@ tasks:
   clean:
     desc: Clean build artifacts
     cmds:
-      - rimraf coverage build tmp
+      - pnpm run clean
 
   build:
     desc: Build project
     deps: [lint]
     cmds:
-      - tsc -p tsconfig.json
+      - pnpm run build
 
-  build:watch:
+  watch:
     desc: Build project in watch mode
     cmds:
-      - tsc -w -p tsconfig.json
+      - pnpm run build:watch
 
-  build:release:
+  release:
     desc: Build project for release
+    deps: [clean]
     cmds:
-      - task: clean
-      - tsc -p tsconfig.release.json
+      - pnpm run build:release
 
   lint:
     desc: Run ESLint
     cmds:
-      - eslint .
+      - pnpm run lint
 
-  test:
-    desc: Run tests
-    cmds:
-      - vitest run unit --config __tests__/vitest.config.ts
+  # test:
+  #   desc: Run tests
+  #   cmds:
+  #     - vitest run unit --config __tests__/vitest.config.ts
 
-  test:coverage:
-    desc: Run tests with coverage
-    cmds:
-      - vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all
+  # test:coverage:
+  #   desc: Run tests with coverage
+  #   cmds:
+  #     - vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all
 
-  test:watch:
-    desc: Run tests in watch mode
-    cmds:
-      - vitest unit
+  # test:watch:
+  #   desc: Run tests in watch mode
+  #   cmds:
+  #     - vitest unit
 
   prettier:
     desc: Format code with Prettier
     cmds:
-      - yarn run prettier "{src,__{tests}__}/**/*.{ts,mts}" --config .prettierrc --write
+      - pnpm run prettier
 
-  prettier:check:
+  check:
     desc: Check code formatting with Prettier
     cmds:
-      - yarn run prettier "{src,__{tests}__}/**/*.{ts,mts}" --config .prettierrc --check
+      - pnpm run prettier:check
 
   types:
     desc: Generate TypeScript types from Python types
     cmds:
-      - wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types/shared_types.py
-      - uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts
+      - pnpm run types

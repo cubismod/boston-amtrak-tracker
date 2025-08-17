@@ -27,16 +27,14 @@
     "startenv": "node --env-file=.env build/src/main.js",
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "yarn run lint",
+    "prebuild": "pnpm run lint",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "yarn run clean && tsc -p tsconfig.release.json",
+    "build:release": "pnpm run clean && tsc -p tsconfig.release.json",
     "lint": "eslint .",
-    "test": "vitest run unit --config __tests__/vitest.config.ts",
     "test:coverage": "vitest run unit --config __tests__/vitest.config.ts --coverage.enabled --coverage.all",
     "prettier": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --write",
     "prettier:check": "prettier \"{src,__{tests}__}/**/*.{ts,mts}\" --config .prettierrc --check",
-    "test:watch": "vitest unit",
     "types": "wget -O shared_types.py https://raw.githubusercontent.com/cubismod/inky-mbta-tracker/refs/heads/main/inky-mbta-tracker/shared_types/shared_types.py && uv run pydantic2ts --module ./shared_types.py --output src/sharedTypes.ts"
   },
   "author": "Ryan Wallace",
@@ -52,5 +50,6 @@
     "koa2-swagger-ui": "^5.11.0",
     "loglevel": "^1.9.2",
     "tslib": "~2.8"
-  }
+  },
+  "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }

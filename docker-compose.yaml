@@ -1,0 +1,10 @@
+services:
+  boston-amtrak-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - "ALLOWED_ORIGINS=*" # narrow for production to your domains
