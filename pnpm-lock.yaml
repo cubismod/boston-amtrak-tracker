@@ -55,8 +55,8 @@ importers:
         specifier: 12.0.4
         version: 12.0.4
       '@types/node':
-        specifier: 22.18.5
-        version: 22.18.5
+        specifier: 22.18.6
+        version: 22.18.6
       '@typescript-eslint/parser':
         specifier: 8.44.0
         version: 8.44.0(eslint@9.35.0)(typescript@5.9.2)
@@ -603,8 +603,8 @@ packages:
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
-  '@types/node@22.18.5':
-    resolution: {integrity: sha512-g9BpPfJvxYBXUWI9bV37j6d6LTMNQ88hPwdWWUeYZnMhlo66FIg9gCc1/DZb15QylJSKwOZjwrckvOTWpOiChg==}
+  '@types/node@22.18.6':
+    resolution: {integrity: sha512-r8uszLPpeIWbNKtvWRt/DbVi5zbqZyj1PTmhRMqBMvDnaz1QpmSKujUtJLrqGZeoM8v72MfYggDceY4K1itzWQ==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2956,16 +2956,16 @@ snapshots:
 
   '@types/accepts@1.3.7':
     dependencies:
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/content-disposition@0.5.9': {}
 
@@ -2974,7 +2974,7 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/express': 5.0.3
       '@types/keygrip': 1.0.6
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/d3-voronoi@1.1.12': {}
 
@@ -2991,7 +2991,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.0.7':
     dependencies:
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.5
@@ -3025,7 +3025,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.8
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/koa__cors@5.0.0':
     dependencies:
@@ -3039,7 +3039,7 @@ snapshots:
 
   '@types/mime@1.3.5': {}
 
-  '@types/node@22.18.5':
+  '@types/node@22.18.6':
     dependencies:
       undici-types: 6.21.0
 
@@ -3052,12 +3052,12 @@ snapshots:
   '@types/send@0.17.5':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
 
   '@types/serve-static@1.15.8':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 22.18.5
+      '@types/node': 22.18.6
       '@types/send': 0.17.5
 
   '@typescript-eslint/eslint-plugin@8.44.0(@typescript-eslint/parser@8.44.0(eslint@9.35.0)(typescript@5.9.2))(eslint@9.35.0)(typescript@5.9.2)':
