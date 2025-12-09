@@ -1,4 +1,4 @@
-FROM node:24.11.1@sha256:aa648b387728c25f81ff811799bbf8de39df66d7e2d9b3ab55cc6300cb9175d9
+FROM node:24.11.1@sha256:ef9b3fbdec4d9e564b74d3033864307b61b114ed687fac00b090d6a08049ba82
 COPY --from=ghcr.io/astral-sh/uv:0.9.16@sha256:ae9ff79d095a61faf534a882ad6378e8159d2ce322691153d68d2afac7422840 /uv /uvx /bin/
 
 WORKDIR /app
