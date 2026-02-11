@@ -16,7 +16,7 @@
     "@typescript-eslint/parser": "8.54.0",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
-    "globals": "16.5.0",
+    "globals": "17.3.0",
     "prettier": "3.8.1",
     "rimraf": "6.1.2",
     "ts-api-utils": "2.4.0",
