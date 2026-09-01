@@ -13,7 +13,7 @@ importers:
         version: 5.0.0
       '@koa/router':
         specifier: ^15.0.0
-        version: 15.5.0(koa@3.2.1)(supports-color@5.5.0)
+        version: 15.5.0(koa@3.1.2)(supports-color@5.5.0)
       '@turf/turf':
         specifier: ^7.2.0
         version: 7.3.4
@@ -25,7 +25,7 @@ importers:
         version: 15.0.4
       koa:
         specifier: ^3.0.0
-        version: 3.2.1
+        version: 3.1.2
       koa-static:
         specifier: ^5.0.0
         version: 5.0.0(supports-color@5.5.0)
@@ -44,7 +44,7 @@ importers:
         version: 10.0.1(eslint@10.9.1(supports-color@5.5.0))
       '@types/eslint__js':
         specifier: 9.14.0
-        version: 9.14.0(eslint@10.9.0)
+        version: 9.14.0(eslint@10.9.1(supports-color@5.5.0))
       '@types/koa':
         specifier: 3.0.3
         version: 3.0.3
@@ -1299,8 +1299,8 @@ packages:
     peerDependencies:
       '@types/koa': '*'
 
-  koa@3.2.1:
-    resolution: {integrity: sha512-e7IpWJrnanNUroVK2taAgMxoEZvHLXdQiNjeExSu/DEIWm83jaKGBgb7tLmu2rMYpA027qFB3iLR/k3AVpFRnA==}
+  koa@3.1.2:
+    resolution: {integrity: sha512-2LOQnFKu3m0VxpE+5sb5+BRTSKrXmNxGgxVRiKwD9s5KQB1zID/FRXhtzeV7RT1L2GVpdEEAfVuclFOMGl1ikA==}
     engines: {node: '>= 18'}
 
   levn@0.4.1:
@@ -1803,11 +1803,11 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@koa/router@15.5.0(koa@3.2.1)(supports-color@5.5.0)':
+  '@koa/router@15.5.0(koa@3.1.2)(supports-color@5.5.0)':
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
       http-errors: 2.0.1
-      koa: 3.2.1
+      koa: 3.1.2
       koa-compose: 4.1.0
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
@@ -2961,9 +2961,9 @@ snapshots:
 
   '@types/d3-voronoi@1.1.12': {}
 
-  '@types/eslint__js@9.14.0(eslint@10.9.0)':
+  '@types/eslint__js@9.14.0(eslint@10.9.1(supports-color@5.5.0))':
     dependencies:
-      '@eslint/js': 10.0.1(eslint@10.9.0)
+      '@eslint/js': 10.0.1(eslint@10.9.1(supports-color@5.5.0))
     transitivePeerDependencies:
       - eslint
 
@@ -3730,7 +3730,7 @@ snapshots:
       lodash: 4.17.21
       read-pkg-up: 7.0.1
 
-  koa@3.2.1:
+  koa@3.1.2:
     dependencies:
       accepts: 1.3.8
       content-disposition: 1.0.1
