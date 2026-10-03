@@ -13,7 +13,7 @@ importers:
         version: 5.0.0
       '@koa/router':
         specifier: ^15.0.0
-        version: 15.5.0(koa@3.1.2)(supports-color@5.5.0)
+        version: 15.5.0(koa@3.2.1)(supports-color@5.5.0)
       '@turf/turf':
         specifier: ^7.2.0
         version: 7.3.4
@@ -25,7 +25,7 @@ importers:
         version: 15.0.4
       koa:
         specifier: ^3.0.0
-        version: 3.1.2
+        version: 3.2.1
       koa-static:
         specifier: ^5.0.0
         version: 5.0.0(supports-color@5.5.0)
@@ -606,9 +606,6 @@ packages:
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
-
-  '@types/node@24.12.4':
-    resolution: {integrity: sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA==}
 
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
@@ -1322,8 +1319,8 @@ packages:
     peerDependencies:
       '@types/koa': '*'
 
-  koa@3.1.2:
-    resolution: {integrity: sha512-2LOQnFKu3m0VxpE+5sb5+BRTSKrXmNxGgxVRiKwD9s5KQB1zID/FRXhtzeV7RT1L2GVpdEEAfVuclFOMGl1ikA==}
+  koa@3.2.1:
+    resolution: {integrity: sha512-e7IpWJrnanNUroVK2taAgMxoEZvHLXdQiNjeExSu/DEIWm83jaKGBgb7tLmu2rMYpA027qFB3iLR/k3AVpFRnA==}
     engines: {node: '>= 18'}
 
   levn@0.4.1:
@@ -1724,9 +1721,6 @@ packages:
   undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
 
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
-
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
@@ -1845,11 +1839,11 @@ snapshots:
     dependencies:
       vary: 1.1.2
 
-  '@koa/router@15.5.0(koa@3.1.2)(supports-color@5.5.0)':
+  '@koa/router@15.5.0(koa@3.2.1)(supports-color@5.5.0)':
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
       http-errors: 2.0.1
-      koa: 3.1.2
+      koa: 3.2.1
       koa-compose: 4.1.0
       path-to-regexp: 8.4.2
     transitivePeerDependencies:
@@ -2981,16 +2975,16 @@ snapshots:
 
   '@types/accepts@1.3.7':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/content-disposition@0.5.9': {}
 
@@ -2999,7 +2993,7 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/express': 5.0.3
       '@types/keygrip': 1.0.6
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/d3-voronoi@1.1.12': {}
 
@@ -3015,7 +3009,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.0.7':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.5
@@ -3057,7 +3051,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.8
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/koa__cors@5.0.1':
     dependencies:
@@ -3070,10 +3064,6 @@ snapshots:
   '@types/lodash@4.17.20': {}
 
   '@types/mime@1.3.5': {}
-
-  '@types/node@24.12.4':
-    dependencies:
-      undici-types: 7.16.0
 
   '@types/node@24.13.3':
     dependencies:
@@ -3088,12 +3078,12 @@ snapshots:
   '@types/send@0.17.5':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
 
   '@types/serve-static@1.15.8':
     dependencies:
       '@types/http-errors': 2.0.5
-      '@types/node': 24.12.4
+      '@types/node': 24.13.3
       '@types/send': 0.17.5
 
   '@typescript-eslint/eslint-plugin@8.70.1(@typescript-eslint/parser@8.70.1(eslint@10.11.0(supports-color@5.5.0))(supports-color@5.5.0)(typescript@7.0.2))(eslint@10.11.0(supports-color@5.5.0))(supports-color@5.5.0)(typescript@7.0.2)':
@@ -3787,7 +3777,7 @@ snapshots:
       lodash: 4.17.21
       read-pkg-up: 7.0.1
 
-  koa@3.1.2:
+  koa@3.2.1:
     dependencies:
       accepts: 1.3.8
       content-disposition: 1.0.1
@@ -4174,8 +4164,6 @@ snapshots:
     optional: true
 
   undefsafe@2.0.5: {}
-
-  undici-types@7.16.0: {}
 
   undici-types@7.18.2: {}
 
