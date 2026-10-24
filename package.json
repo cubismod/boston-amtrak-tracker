@@ -13,7 +13,7 @@
     "@types/koa__cors": "5.0.1",
     "@types/koa__router": "15.0.0",
     "@types/node": "24.19.2",
-    "@typescript-eslint/parser": "8.71.2",
+    "@typescript-eslint/parser": "8.72.0",
     "eslint": "10.13.0",
     "eslint-config-prettier": "10.1.8",
     "globals": "17.13.0",
@@ -21,7 +21,7 @@
     "rimraf": "6.1.3",
     "ts-api-utils": "2.5.0",
     "typescript": "7.0.2",
-    "typescript-eslint": "8.71.2"
+    "typescript-eslint": "8.72.0"
   },
   "scripts": {
     "startenv": "node --env-file=.env build/src/main.js",
